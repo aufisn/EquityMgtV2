@@ -1,9 +1,10 @@
 // Stocks Mgt V2 — service worker.
 // The app is one self-contained index.html, so offline support is just: keep the latest copy.
 // Navigation: network first (always the latest deploy), falling back to the cached copy after
-// 3 s or when offline. Icons and manifest: cache first. GitHub API calls are never intercepted.
-const CACHE = 'smv2-v3'; // bump on every deploy
-const SHELL = ['./', './index.html', './manifest.json', './icon-192.png', './icon-512.png', './icon-maskable-512.png', './apple-touch-icon.png', './favicon-32.png'];
+// 3 s or when offline. The manifest is always fetched fresh (a stale one gives the install prompt
+// the wrong app identity). Icons: cache first. GitHub API calls are never intercepted.
+const CACHE = 'smv2-v4'; // bump on every deploy
+const SHELL = ['./', './index.html', './manifest.webmanifest', './icon-192.png', './icon-512.png', './icon-maskable-512.png', './apple-touch-icon.png', './favicon-32.png'];
 
 self.addEventListener('install', (e) => {
   e.waitUntil(caches.open(CACHE).then((c) => Promise.all(SHELL.map((u) => c.add(new Request(u, { cache: 'reload' })).catch(() => {})))).then(() => self.skipWaiting()));
@@ -35,6 +36,13 @@ self.addEventListener('fetch', (e) => {
         cachedShell(req).then((r) => { if (r) finish(r); else if (!done) { done = true; reject(err); } });
       });
     }));
+    return;
+  }
+  if (url.pathname.endsWith('.webmanifest') || url.pathname.endsWith('manifest.json')) {
+    e.respondWith(fetch(req, { cache: 'no-cache' }).then((res) => {
+      if (res.ok) { const copy = res.clone(); caches.open(CACHE).then((c) => c.put(req, copy)); }
+      return res;
+    }).catch(() => caches.match(req)));
     return;
   }
   e.respondWith(caches.match(req).then((hit) => hit || fetch(req).then((res) => {
