@@ -3,7 +3,7 @@
 // Navigation: network first (always the latest deploy), falling back to the cached copy after
 // 3 s or when offline. The manifest is always fetched fresh (a stale one gives the install prompt
 // the wrong app identity). Icons: cache first. GitHub API calls are never intercepted.
-const CACHE = 'smv2-v6'; // bump on every deploy
+const CACHE = 'smv2-v7'; // bump on every deploy
 const SHELL = ['./', './index.html', './manifest.webmanifest', './icon-192.png', './icon-512.png', './icon-maskable-512.png', './apple-touch-icon.png', './favicon-32.png'];
 
 self.addEventListener('install', (e) => {
