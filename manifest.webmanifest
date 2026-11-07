@@ -1,7 +1,7 @@
 {
   "id": "/stocks-mgt-v2",
-  "name": "Stocks Mgt V2",
-  "short_name": "Stocks Mgt",
+  "name": "EquityMgtV2",
+  "short_name": "EquityMgtV2",
   "description": "Encrypted bookkeeping for equity trades in USD and OMR",
   "start_url": "./index.html",
   "scope": "./",

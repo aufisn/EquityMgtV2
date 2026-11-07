@@ -1,9 +1,9 @@
-// Stocks Mgt V2 — service worker.
+// EquityMgtV2 — service worker.
 // The app is one self-contained index.html, so offline support is just: keep the latest copy.
 // Navigation: network first (always the latest deploy), falling back to the cached copy after
 // 3 s or when offline. The manifest is always fetched fresh (a stale one gives the install prompt
 // the wrong app identity). Icons: cache first. GitHub API calls are never intercepted.
-const CACHE = 'smv2-v4'; // bump on every deploy
+const CACHE = 'smv2-v5'; // bump on every deploy
 const SHELL = ['./', './index.html', './manifest.webmanifest', './icon-192.png', './icon-512.png', './icon-maskable-512.png', './apple-touch-icon.png', './favicon-32.png'];
 
 self.addEventListener('install', (e) => {
