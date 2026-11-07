@@ -2,7 +2,7 @@
 // The app is one self-contained index.html, so offline support is just: keep the latest copy.
 // Navigation: network first (always the latest deploy), falling back to the cached copy after
 // 3 s or when offline. Icons and manifest: cache first. GitHub API calls are never intercepted.
-const CACHE = 'smv2-v1'; // bump on every deploy
+const CACHE = 'smv2-v3'; // bump on every deploy
 const SHELL = ['./', './index.html', './manifest.json', './icon-192.png', './icon-512.png', './icon-maskable-512.png', './apple-touch-icon.png', './favicon-32.png'];
 
 self.addEventListener('install', (e) => {
